@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.educandoweb.maxvendas.entities.User;
 import com.educandoweb.maxvendas.repositories.UserRepository;
+import com.educandoweb.maxvendas.services.exceptions.ResourcedNotFoundException;
 
 
 @Service
@@ -22,7 +23,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourcedNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
